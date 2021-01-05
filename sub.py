@@ -35,8 +35,8 @@ if os.environ.get('GITHUB_RUN_ID', None):
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
     
-    print("user:",str(user))
-    print("passwd:",str(passwd))
+#     print("user:",str(user))
+#     print("passwd:",str(passwd))
     
     api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
 
@@ -58,12 +58,12 @@ def login(s: requests.Session, username, password):
     r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data=payload)
 
     # print(r.text)
-    if r.json().get('m') != "操作成功，测试":
+    if r.json().get('m') != "操作成功":
         print(r.text)
-        print("登录失败，测试")
+        print("登录失败")
         exit(1)
     else:
-        print("登录成功，测试")
+        print("登录成功")
 
 
 def get_daily(s: requests.Session):
@@ -188,9 +188,9 @@ def report(username, password):
     s.headers.update(header)
 
     print(datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S %Z"))
-#     for i in range(randint(5, 10), 0, -1):
-#         print("\r等待{}秒后填报".format(i), end='')
-#         sleep(1)
+    for i in range(randint(4, 10), 0, -1):
+        print("\r等待{}秒后填报".format(i), end='')
+        sleep(1)
 
     login(s, username, password)
     yesterday = get_daily(s)

@@ -24,40 +24,25 @@ user = "USERNAME"
 passwd = "PASSWORD"
 api_key = "API_KEY"
 
-# smtp_port = "SMTP_PORT"
-# smtp_server = "SMTP_SERVER"
-# sender_email = "SENDER_EMAIL"
-# sender_email_passwd = "SENDER_EMAIL_PASSWD"
-# receiver_email = "RECEIVER_EMAIL"
 
 # 如果检测到程序在 github actions 内运行，那么读取环境变量中的登录信息
 if os.environ.get('GITHUB_RUN_ID', None):
-    # print('\r!!!!!!!!!!\n')
+
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
     
     print('user:',user)
     print('passwd:',passwd)
-    # api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
-
-    # smtp_port = os.environ['SMTP_PORT'] # 邮件服务器端口，默认为qq smtp服务器端口
-    # smtp_server = os.environ['SMTP_SERVER'] # 邮件服务器，默认为qq smtp服务器
-    # sender_email = os.environ['SENDER_EMAIL'] # 发送通知打卡通知邮件的邮箱
-    # sender_email_passwd = os.environ['SENDER_EMAIL_PASSWD'] # 发送通知打卡通知邮件的邮箱密码
-    # receiver_email = os.environ['RECEIVER_EMAIL'] # 接收打卡通知邮件的邮箱
 
 
 def login(s: requests.Session, username, password):
-    # r = s.get(
-    #     "https://app.ucas.ac.cn/uc/wap/login?redirect=https%3A%2F%2Fapp.ucas.ac.cn%2Fsite%2FapplicationSquare%2Findex%3Fsid%3D2")
-    # print(r.text)
+
     payload = {
         "username": username,
         "password": password
     }
     r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data=payload)
 
-    # print(r.text)
     if r.json().get('m') != "操作成功":
         print(r.text)
         print("登录失败")
@@ -139,45 +124,6 @@ def submit(s: requests.Session, old: dict):
     else:
         print("打卡失败，错误信息: ", r.json().get("m"))
 
-#     if api_key != "":
-#         message(api_key, result.get('m'), new_daily)
-#     if sender_email != "" and receiver_email != "":
-#         send_email(sender_email, sender_email_passwd, receiver_email, result.get('m'), new_daily)
-
-
-# def message(key, title, body):
-#     """
-#     微信通知打卡结果
-#     """
-#     # 错误的key也可以发送消息，无需处理 :)
-#     msg_url = "https://sc.ftqq.com/{}.send?text={}&desp={}".format(key, title, body)
-#     requests.get(msg_url)
-
-
-# def send_email(sender, passwd, receiver, subject, msg):
-#     """
-#     邮件通知打卡结果
-#     """
-#     try:
-#         body = MIMEText(str(msg),'plain','utf-8')
-#         body['From'] = formataddr(["notifier",sender])
-#         body['To'] = formataddr(["me",receiver])
-#         body['Subject'] = "UCAS疫情填报助手通知-" + subject
-
-#         global smtp_port, smtp_server
-#         if smtp_server == "" or smtp_port == "":
-#             smtp_port = 465
-#             smtp_server = "smtp.qq.com"
-#         smtp = smtplib.SMTP_SSL(smtp_server, smtp_port)
-#         smtp.login(sender, passwd)
-#         smtp.sendmail(sender, receiver, body.as_string())
-#         smtp.quit()
-#         print("邮件发送成功")
-#     except Exception as ex:
-#         print("邮件发送失败")
-#         if debug:
-#             print(ex)
-
 
 def report(username, password):
     s = requests.Session()
@@ -188,7 +134,7 @@ def report(username, password):
     s.headers.update(header)
 
     print(datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S %Z"))
-    for i in range(randint(8, 13), 0, -1):
+    for i in range(randint(8, 12), 0, -1):
         print("\r等待{}秒后填报".format(i), end='')
         sleep(1)
 

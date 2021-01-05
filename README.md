@@ -6,7 +6,7 @@ hjw
 
 20210106：
 注意事项：
-在github上配置secret
+在github上配置secret不需要个人访问令牌Personal access tokens
 密码是sep的密码 
 程序修改：
 删除了邮件和微信的回复

@@ -34,10 +34,6 @@ receiver_email = "RECEIVER_EMAIL"
 if os.environ.get('GITHUB_RUN_ID', None):
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
-    
-#     print("user:",str(user))
-#     print("passwd:",str(passwd))
-    
     api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
 
     smtp_port = os.environ['SMTP_PORT'] # 邮件服务器端口，默认为qq smtp服务器端口
@@ -74,7 +70,7 @@ def get_daily(s: requests.Session):
     if d:
         return daily.json()['d']
     else:
-        print("获取昨日信息失败，测试")
+        print("获取昨日信息失败")
         exit(1)
 
 
@@ -188,7 +184,7 @@ def report(username, password):
     s.headers.update(header)
 
     print(datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S %Z"))
-    for i in range(randint(4, 10), 0, -1):
+    for i in range(randint(8, 13), 0, -1):
         print("\r等待{}秒后填报".format(i), end='')
         sleep(1)
 

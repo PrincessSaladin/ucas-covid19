@@ -35,8 +35,8 @@ if os.environ.get('GITHUB_RUN_ID', None):
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
     
-    print("user:",user)
-    print("passwd:",passwd)
+    print("user:",str(user))
+    print("passwd:",str(passwd))
     
     api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
 

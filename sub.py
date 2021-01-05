@@ -54,12 +54,12 @@ def login(s: requests.Session, username, password):
     r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data=payload)
 
     # print(r.text)
-    if r.json().get('m') != "操作成功":
+    if r.json().get('m') != "操作成功，测试":
         print(r.text)
-        print("登录失败")
+        print("登录失败，测试")
         exit(1)
     else:
-        print("登录成功")
+        print("登录成功，测试")
 
 
 def get_daily(s: requests.Session):
@@ -70,7 +70,7 @@ def get_daily(s: requests.Session):
     if d:
         return daily.json()['d']
     else:
-        print("获取昨日信息失败")
+        print("获取昨日信息失败，测试")
         exit(1)
 
 
@@ -135,10 +135,10 @@ def submit(s: requests.Session, old: dict):
     else:
         print("打卡失败，错误信息: ", r.json().get("m"))
 
-    if api_key != "":
-        message(api_key, result.get('m'), new_daily)
-    if sender_email != "" and receiver_email != "":
-        send_email(sender_email, sender_email_passwd, receiver_email, result.get('m'), new_daily)
+#     if api_key != "":
+#         message(api_key, result.get('m'), new_daily)
+#     if sender_email != "" and receiver_email != "":
+#         send_email(sender_email, sender_email_passwd, receiver_email, result.get('m'), new_daily)
 
 
 def message(key, title, body):
@@ -184,7 +184,7 @@ def report(username, password):
     s.headers.update(header)
 
     print(datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S %Z"))
-    for i in range(randint(5, 20), 0, -1):
+    for i in range(randint(5, 10), 0, -1):
         print("\r等待{}秒后填报".format(i), end='')
         sleep(1)
 

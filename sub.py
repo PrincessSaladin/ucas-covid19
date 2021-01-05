@@ -34,6 +34,10 @@ receiver_email = "RECEIVER_EMAIL"
 if os.environ.get('GITHUB_RUN_ID', None):
     user = os.environ['SEP_USER_NAME']  # sep账号
     passwd = os.environ['SEP_PASSWD']  # sep密码
+    
+    prnit("user:",user)
+    prnit("passwd:",passwd)
+    
     api_key = os.environ['API_KEY']  # server酱的api，填了可以微信通知打卡结果，不填没影响
 
     smtp_port = os.environ['SMTP_PORT'] # 邮件服务器端口，默认为qq smtp服务器端口

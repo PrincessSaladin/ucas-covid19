@@ -93,7 +93,10 @@ def submit(s: requests.Session, old: dict):
         'old_city': old['old_city'],
         'geo_api_infot': old['geo_api_infot'],
         'date': datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d"),
-        'fjsj': old['fjsj'],
+        'fjsj': old['fjsj'],  # 返京时间
+        'ljrq': old['ljrq'],  # 离京日期 add@2021.1.24
+        'qwhd': old['qwhd'],  # 去往何地 add@2021.1.24
+        'chdfj': old['chdfj'],  # 从何地返京 add@2021.1.24
         'jcbhrq': old['jcbhrq'],
         'glksrq': old['glksrq'],
         'fxyy': old['fxyy'],
@@ -107,7 +110,8 @@ def submit(s: requests.Session, old: dict):
         'gtshcyjkzt': old['gtshcyjkzt'],  # add @2020.9.16
         'jrsfdgzgfxdq': old['jrsfdgzgfxdq'],  # add @2020.9.16
         'jrsflj': old['jrsflj'],  # add @2020.9.16
-        'app_id': 'ucas'}
+        'app_id': 'ucas'
+    }
 
     r = s.post("https://app.ucas.ac.cn/ncov/api/default/save", data=new_daily)
 
